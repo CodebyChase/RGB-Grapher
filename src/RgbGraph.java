@@ -6,13 +6,13 @@ public class RgbGraph {
 	String greenExpression=""; // Generates green
 	String blueExpression=""; // Generates blue
 	//The absolute values of the expressions at each coordinate
-	int[][][] absoluteVals= new int[200][200][3];
+	double[][][] absoluteVals= new double[200][200][3];
 	//The scaled values of the expression at each coordinate
 	int[][][] scaledVals= new int[200][200][3];
-	int minY = -1; //The bottom Y value of coordinate range
-	int maxY= 1;  //The top Y value of coordinate range
-	int minX = -1;// The farthest left value of coordinate range
-	int maxX = 1; // Farthest right value of coordinate range
+	double minY = -1; //The bottom Y value of coordinate range
+	double maxY= 1;  //The top Y value of coordinate range
+	double minX = -1;// The farthest left value of coordinate range
+	double maxX = 1; // Farthest right value of coordinate range
 
 	//Constructor
 	/**
@@ -26,12 +26,12 @@ public class RgbGraph {
 	 * @param highX MAximum range of X coordinate
 	 */
 	public RgbGraph(String red, String green, String blue,
-			int lowY, int highY, int lowX, int highX){
+			double lowY, double highY, double lowX, double highX){
 		minY = lowY;
 		maxY = highY;
 		minX = lowX;
 		maxX = highX;
-		int[][][] graphValues = generateGraph(red,green,blue,
+		double[][][] graphValues = generateGraph(red,green,blue,
 				lowY,highY,lowX,highX);
 		absoluteVals=graphValues;
 		scaledVals=scaleGraph(graphValues);
@@ -42,14 +42,51 @@ public class RgbGraph {
 		
 	}
 	
-	private static int[][][] generateGraph(String red, String
-			green, String blue, int lowY, int highY, int lowX,
-			int highX){
+    private static double[][][] generateGraph(String red, String
+			green, String blue, double lowY, double highY, double lowX,
+			double highX){
+    	
+    	double[][][] output = new double[200][200][3];
+    	
+    	org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
+    	myParser.addStandardFunctions();
+    	myParser.addStandardConstants();
+    	myParser.setImplicitMul(true);
 		
-		return new int[1][1][1];
-	};
+    	double xRange = Math.abs(highX-lowX);
+    	double yRange = Math.abs(highY-lowY);
+    	
+    	double xIncrementer = xRange/200.0;
+    	double yIncrementer = yRange/200.0;
+    	
+    	for (int i=0; i<201; i++){
+    		for (int j=0; j<201; j++){
+    			String colorVal = red;
+    			colorVal.replaceAll("x","("+ (lowX+xIncrementer*i) + ")");
+    			colorVal.replaceAll("y","("+ (lowY+yIncrementer*j) + ")");
+    			myParser.parseExpression(colorVal);
+    			double redVal = myParser.getValue();
+    			output[i][j][0] = redVal;
+    			
+    			colorVal = green;
+    			colorVal.replaceAll("x","("+ (lowX+xIncrementer*i) + ")");
+    			colorVal.replaceAll("y","("+ (lowY+yIncrementer*j) + ")");
+    			myParser.parseExpression(colorVal);
+    			double greenVal = myParser.getValue();
+    			output[i][j][1] = greenVal;
+    			
+    			colorVal = green;
+    			colorVal.replaceAll("x","("+ (lowX+xIncrementer*i) + ")");
+    			colorVal.replaceAll("y","("+ (lowY+yIncrementer*j) + ")");
+    			myParser.parseExpression(colorVal);
+    			double blueVal = myParser.getValue();
+    			output[i][j][2] = blueVal;
+    		}
+    	}	
+		return output;
+	}
 	
-	private static int[][][] scaleGraph(int[][][] absGraph){
+	private static int[][][] scaleGraph(double[][][] absGraph){
 		return new int[1][1][1];
 	}
 
