@@ -47,11 +47,10 @@ public class RgbGraph {
 				lowY,highY,lowX,highX);
 		absoluteVals=graphValues;
 		scaledVals=scaleGraph(graphValues);
-		
-		
-		
-		
-		
+	}
+	
+	public int[][][] getScaledGraph(){
+		return this.scaledVals;
 	}
 	
     private static double[][][] generateGraph(String red, String

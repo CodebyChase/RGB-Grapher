@@ -1,5 +1,15 @@
-
+/**
+ * BufferedGraphImage inherits from BufferedGraphImage.
+ * It differs by being necessarily square and of RGB type.
+ * 
+ * Follows the convention of RgbGraph where 0,0 is placed at the 
+ * bottom left corner.
+ *
+ * @author chase
+ *
+ */
 public class BufferedGraphImage extends java.awt.image.BufferedImage {
+	
 	//Field to make resolution easily accessible
 	private int resolution;
 	
@@ -10,7 +20,7 @@ public class BufferedGraphImage extends java.awt.image.BufferedImage {
 	}
 	
 	/**
-	 * Writes the RGB values of this to the values of pixels.
+	 * Writes the contents of pixels to the RGB values of this.
 	 * RgbGraph places 0,0 at the bottom left, while BufferedImage places it 
 	 * at the top left. This is accounted for here
 	 * 
