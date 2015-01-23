@@ -1,24 +1,32 @@
 
 public class RgbGraph {
+	
+	//The resolution of the graph
 	public static final int RESOLUTION = 200;
 	
 	//Fields
+	//The expressions which generate the graph
+	private String redExpression = ""; //Expression generating reds
+	private String greenExpression=""; // Generates green
+	private String blueExpression=""; // Generates blue
 	
-	String redExpression = ""; //Expression generating reds
-	String greenExpression=""; // Generates green
-	String blueExpression=""; // Generates blue
 	//The absolute values of the expressions at each coordinate
-	double[][][] absoluteVals= new double[RESOLUTION][RESOLUTION][3];
+	private double[][][] absoluteVals= new double[RESOLUTION][RESOLUTION][3];
+	
 	//The scaled values of the expression at each coordinate
-	int[][][] scaledVals= new int[RESOLUTION][RESOLUTION][3];
-	double minY = -1; //The bottom Y value of coordinate range
-	double maxY= 1;  //The top Y value of coordinate range
-	double minX = -1;// The farthest left value of coordinate range
-	double maxX = 1; // Farthest right value of coordinate range
+	private int[][][] scaledVals= new int[RESOLUTION][RESOLUTION][3];
+	
+	//The window size / limits of the graph
+	private double minY = -1; //The bottom Y value of coordinate range
+	private double maxY= 1;  //The top Y value of coordinate range
+	private double minX = -1;// The farthest left value of coordinate range
+	private double maxX = 1; // Farthest right value of coordinate range
 
 	
 	//Constructor
 	/**
+	 * Expressions can contain x and y as variables.
+	 * lowX < highX, lowY < highY.
 	 * 
 	 * @param red Expression to generate red
 	 * @param green Expression to generate green
@@ -86,7 +94,7 @@ public class RgbGraph {
     			double greenVal = myParser.getValue();
     			output[i][j][1] = greenVal;
     			
-    			colorVal = green;
+    			colorVal = blue;
     			colorVal.replaceAll("x","("+ (lowX+xIncrement*i) + ")");
     			colorVal.replaceAll("y","("+ (lowY+yIncrement*j) + ")");
     			myParser.parseExpression(colorVal);
@@ -96,7 +104,15 @@ public class RgbGraph {
     	}	
     	return output;
 	}
-	
+	/**
+	 *@params absGraph: a RESOLUTION x RESOLUTION x 3 array of doubles
+	 *@return output: a linear scaling of absGraph to the range of 0-255
+	 *				  of ints. Intended to be used to color pixels of a 
+	 *				  RESOLUTION x RESOLUTION image.
+	 *
+	 *
+	 *
+	 */
 	private static int[][][] scaleGraph(double[][][] absGraph){
 		//initialize output
 		int[][][] output = new int[RESOLUTION][RESOLUTION][3];
