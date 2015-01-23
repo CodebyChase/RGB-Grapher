@@ -49,6 +49,10 @@ public class RgbGraph {
 		scaledVals=scaleGraph(graphValues);
 	}
 	
+	/**
+	 * Getter method for scaledVals
+	 * @return
+	 */
 	public int[][][] getScaledGraph(){
 		return this.scaledVals;
 	}
@@ -66,7 +70,7 @@ public class RgbGraph {
     	myParser.addStandardConstants();
     	myParser.setImplicitMul(true);
 		
-    	//the range of x and y
+    	//the range of x and y in the window
     	double xRange = Math.abs(highX-lowX);
     	double yRange = Math.abs(highY-lowY);
     	
@@ -126,7 +130,7 @@ public class RgbGraph {
 		double minBlue = absGraph[0][0][2];
 		double maxBlue = absGraph[0][0][2];
 		
-		//The values of R, G, and B at each coordinate
+		//initialize the variables for R, G, and B at each coordinate
 		double red = absGraph[0][0][0];
 		double green = absGraph[0][0][1];
 		double blue = absGraph[0][0][2];

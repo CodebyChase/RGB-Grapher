@@ -19,10 +19,14 @@ public class Core {
 		
 		System.out.println("enter an expression");
 		String expression = sc.nextLine();
+		System.out.println("enter another");
+		String expression2 = sc.nextLine();
+		System.out.println("and a third");
+		String expression3 = sc.nextLine();
 		
 		sc.close();
 		
-		RgbGraph graph = new RgbGraph(expression,expression,expression,
+		RgbGraph graph = new RgbGraph(expression,expression2,expression3,
 				-10,10,-10,10);
 		
 		int[][][] pixels = graph.getScaledGraph();
