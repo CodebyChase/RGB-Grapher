@@ -6,21 +6,22 @@ public class RgbGraph {
 	
 	//Fields
 	//The expressions which generate the graph
-	private String redExpression = ""; //Expression generating reds
-	private String greenExpression=""; // Generates green
-	private String blueExpression=""; // Generates blue
+	String redExpression = ""; //Expression generating reds
+	String greenExpression=""; // Generates green
+	String blueExpression=""; // Generates blue
 	
 	//The absolute values of the expressions at each coordinate
-	private double[][][] absoluteVals= new double[RESOLUTION][RESOLUTION][3];
+	// NOTE (0,0) is the bottom left of the graph
+	double[][][] absoluteVals= new double[RESOLUTION][RESOLUTION][3];
 	
 	//The scaled values of the expression at each coordinate
-	private int[][][] scaledVals= new int[RESOLUTION][RESOLUTION][3];
+	int[][][] scaledVals= new int[RESOLUTION][RESOLUTION][3];
 	
 	//The window size / limits of the graph
-	private double minY = -1; //The bottom Y value of coordinate range
-	private double maxY= 1;  //The top Y value of coordinate range
-	private double minX = -1;// The farthest left value of coordinate range
-	private double maxX = 1; // Farthest right value of coordinate range
+	double minY = -1; //The bottom Y value of coordinate range
+	double maxY= 1;  //The top Y value of coordinate range
+	double minX = -1;// The farthest left value of coordinate range
+	double maxX = 1; // Farthest right value of coordinate range
 
 	
 	//Constructor
@@ -78,8 +79,8 @@ public class RgbGraph {
     	
     	//Fill in the graph at each coordinate
     	//by evaluating the corresponding expression using the parser
-    	for (int i=0; i<(RESOLUTION+1); i++){
-    		for (int j=0; j<(RESOLUTION+1); j++){
+    	for (int i=0; i<(RESOLUTION); i++){
+    		for (int j=0; j<(RESOLUTION); j++){
     			String colorVal = red;
     			colorVal.replaceAll("x","("+ (lowX+xIncrement*i) + ")");
     			colorVal.replaceAll("y","("+ (lowY+yIncrement*j) + ")");
@@ -132,8 +133,8 @@ public class RgbGraph {
 		double blue = absGraph[0][0][2];
 		
 		//Find the min and max values
-		for(int i=0; i<(RESOLUTION+1); i++){
-			for(int j=0; j<(RESOLUTION+1); j++){
+		for(int i=0; i<(RESOLUTION); i++){
+			for(int j=0; j<(RESOLUTION); j++){
 				red = absGraph[i][j][0];
 				green = absGraph[i][j][1];
 				blue = absGraph[i][j][2];
@@ -159,8 +160,8 @@ public class RgbGraph {
 		double blueRange = maxBlue - minBlue;
 		
 		//Scale down/up all values
-		for(int i=0; i<(RESOLUTION+1); i++){
-			for(int j=0; j<(RESOLUTION+1); j++){
+		for(int i=0; i<(RESOLUTION); i++){
+			for(int j=0; j<(RESOLUTION); j++){
 				//collect RGBs
 				red = absGraph[i][j][0];
 				green = absGraph[i][j][1];
