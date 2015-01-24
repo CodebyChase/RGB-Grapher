@@ -5,7 +5,6 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
-
 import javax.imageio.ImageIO;
 
 public class Core {
@@ -30,6 +29,7 @@ public class Core {
 				-10,10,-10,10);
 		
 		int[][][] pixels = graph.getScaledGraph();
+		
 		BufferedGraphImage img = new BufferedGraphImage(RgbGraph.RESOLUTION);
 		
 		img.fillGraphImage(pixels);
@@ -37,6 +37,8 @@ public class Core {
 		
 		
 		ImageIO.write(img, "png", outputfile);
+		
+		System.out.println("complete");
 		
 	}
 }

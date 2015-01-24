@@ -10,7 +10,7 @@ public class RgbGraph {
 	String greenExpression=""; // Generates green
 	String blueExpression=""; // Generates blue
 	
-	//The absolute values of the expressions at each coordinate
+	//The unscaled values of the expressions at each coordinate
 	// NOTE (0,0) is the bottom left of the graph
 	double[][][] absoluteVals= new double[RESOLUTION][RESOLUTION][3];
 	
@@ -35,7 +35,7 @@ public class RgbGraph {
 	 * @param lowY  Minimum value of Y coordinate
 	 * @param highY Maximum range of Y coordinate
 	 * @param lowX  Minimum range of X coordinate
-	 * @param highX MAximum range of X coordinate
+	 * @param highX Maximum range of X coordinate
 	 */
 	public RgbGraph(String red, String green, String blue,
 			double lowY, double highY, double lowX, double highX){
@@ -56,6 +56,27 @@ public class RgbGraph {
 	public int[][][] getScaledGraph(){
 		return this.scaledVals;
 	}
+	
+	/**
+	 * Getter method for absoluteVals
+	 */
+	public double [][][] getUnscaledGraph(){
+		return this.absoluteVals;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @param red
+	 * @param green
+	 * @param blue
+	 * @param lowY
+	 * @param highY
+	 * @param lowX
+	 * @param highX
+	 * @return
+	 */
 	
     private static double[][][] generateGraph(String red, String
 			green, String blue, double lowY, double highY, double lowX,
@@ -85,23 +106,25 @@ public class RgbGraph {
     	for (int i=0; i<(RESOLUTION); i++){
     		for (int j=0; j<(RESOLUTION); j++){
     			String colorVal = red;
-    			colorVal.replaceAll("x","("+ (lowX+xIncrement*i) + ")");
-    			colorVal.replaceAll("y","("+ (lowY+yIncrement*j) + ")");
-    			myParser.parseExpression(colorVal);
+    			String cv1 = colorVal.replaceAll("x","("+ 
+    					(lowX+xIncrement*i) + ")");
+    			String cv2 = cv1.replaceAll("y","("+ 
+    					(lowY+yIncrement*j) + ")");
+    			myParser.parseExpression(cv2);
     			double redVal = myParser.getValue();
     			output[i][j][0] = redVal;
     			
     			colorVal = green;
-    			colorVal.replaceAll("x","("+ (lowX+xIncrement*i) + ")");
-    			colorVal.replaceAll("y","("+ (lowY+yIncrement*j) + ")");
-    			myParser.parseExpression(colorVal);
+    			cv1 = colorVal.replaceAll("x","("+ (lowX+xIncrement*i) + ")");
+    			cv2 = cv1.replaceAll("y","("+ (lowY+yIncrement*j) + ")");
+    			myParser.parseExpression(cv2);
     			double greenVal = myParser.getValue();
     			output[i][j][1] = greenVal;
     			
     			colorVal = blue;
-    			colorVal.replaceAll("x","("+ (lowX+xIncrement*i) + ")");
-    			colorVal.replaceAll("y","("+ (lowY+yIncrement*j) + ")");
-    			myParser.parseExpression(colorVal);
+    			cv1 = colorVal.replaceAll("x","("+(lowX+xIncrement*i) + ")");
+    			cv2 = cv1.replaceAll("y","("+ (lowY+yIncrement*j) + ")");
+    			myParser.parseExpression(cv2);
     			double blueVal = myParser.getValue();
     			output[i][j][2] = blueVal;
     		}
