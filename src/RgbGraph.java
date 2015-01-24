@@ -67,14 +67,15 @@ public class RgbGraph {
 	
 	
 	/**
+	 * Calculates the unscaled (absolute) values for a graph
 	 * 
-	 * @param red
-	 * @param green
-	 * @param blue
-	 * @param lowY
-	 * @param highY
-	 * @param lowX
-	 * @param highX
+	 * @param red : expression controlling red
+	 * @param green : expression controlling green
+	 * @param blue : expression controlling blue
+	 * @param lowY :  bottom range of y in the graph
+	 * @param highY : top range of Y in the graph
+	 * @param lowX : bottom value of x in the graph
+	 * @param highX : top value of x in the graph
 	 * @return
 	 */
 	
@@ -132,6 +133,8 @@ public class RgbGraph {
     	return output;
 	}
 	/**
+	 * scales down the values of a graph to range from 0-255
+	 * 
 	 *@params absGraph: a RESOLUTION x RESOLUTION x 3 array of doubles
 	 *@return output: a linear scaling of absGraph to the range of 0-255
 	 *				  of ints. Intended to be used to color pixels of a 
