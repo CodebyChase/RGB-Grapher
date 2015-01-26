@@ -114,6 +114,8 @@ public class GrapherGuiMainFrame extends JFrame{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
+			
+			System.out.println("foo");
 			String redE = redTextField.getText();
 			String greenE = greenTextField.getText();
 			String blueE = blueTextField.getText();
@@ -142,8 +144,11 @@ public class GrapherGuiMainFrame extends JFrame{
 				e.printStackTrace();
 			}
 			
-			ImageIcon updatedPicture = new ImageIcon("graph.png");
+			ImageIcon updatedPicture = new ImageIcon();
+			
+			updatedPicture.setImage(i);
             outputImage.setIcon(updatedPicture);
+            
 			
 			
 			
