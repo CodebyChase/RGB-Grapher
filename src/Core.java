@@ -2,10 +2,9 @@
 * @author chase
 * Contains main and executes the rest of the program
 */
-import java.io.File;
+
 import java.io.IOException;
-import java.util.Scanner;
-import javax.imageio.ImageIO;
+
 
 public class Core {
 

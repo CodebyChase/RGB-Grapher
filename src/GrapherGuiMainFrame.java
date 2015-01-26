@@ -1,21 +1,25 @@
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
-import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.awt.image.BufferedImage;
-import javax.swing.ImageIcon;
 
 public class GrapherGuiMainFrame extends JFrame{
+	
 	private static final int FRAME_WIDTH = 450;
 	private static final int FRAME_HEIGHT = 100;
 	
 	private static final int FIELD_WIDTH = 10;
+	
+	private JPanel panel = new JPanel();
 	
 	private JLabel redExpress;
 	private JLabel greenExpress;
@@ -110,6 +114,40 @@ public class GrapherGuiMainFrame extends JFrame{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
+			String redE = redTextField.getText();
+			String greenE = greenTextField.getText();
+			String blueE = blueTextField.getText();
+			
+			double ymin = Double.parseDouble(minY.getText());
+			double ymax = Double.parseDouble(maxY.getText());
+			double xmin = Double.parseDouble(minX.getText());
+			double xmax = Double.parseDouble(maxX.getText());
+			
+			
+			RgbGraph graph = new RgbGraph(redE,greenE, blueE,
+					ymin,ymax,xmin,xmax);
+			
+			int[][][] pixels = graph.getScaledGraph();
+			
+			BufferedGraphImage i = new BufferedGraphImage(RgbGraph.RESOLUTION);
+			
+			i.fillGraphImage(pixels);
+			
+			File outputfile = new File("graph.png");
+			
+			try {
+				ImageIO.write(i, "png", outputfile);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			ImageIcon updatedPicture = new ImageIcon("graph.png");
+            outputImage.setIcon(updatedPicture);
+			
+			
+			
+			
 			
 		}
 	}
@@ -123,7 +161,7 @@ public class GrapherGuiMainFrame extends JFrame{
 	}
 	
 	private void createPanel(){
-		JPanel panel = new JPanel();
+		
 		
 		panel.add(redExpress);
 		panel.add(redTextField);
