@@ -1,12 +1,17 @@
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
 
-public class GrapherGuiMainFrame extends JFrame {
+public class GrapherGuiMainFrame extends JFrame{
 	private static final int FRAME_WIDTH = 450;
 	private static final int FRAME_HEIGHT = 100;
 	
@@ -17,6 +22,7 @@ public class GrapherGuiMainFrame extends JFrame {
 	private JLabel blueExpress;
 	private JLabel yRange;
 	private JLabel xRange;
+	private JLabel outputImage;
 	
 	private JTextField redTextField;
 	private JTextField greenTextField;
@@ -28,13 +34,14 @@ public class GrapherGuiMainFrame extends JFrame {
 	
 	private JButton calculate;
 	
-	public GrapherGuiMainFrame(){
+	public GrapherGuiMainFrame() throws IOException{
 		createRedTextField();
 		createGreenTextField();
 		createBlueTextField();
 		createYRangeTextField();
 		createXRangeTextField();
 		createCalculateButton();
+		createImageLabel();
 		createPanel();
 		
 		setSize(FRAME_WIDTH,FRAME_HEIGHT);
@@ -93,6 +100,12 @@ public class GrapherGuiMainFrame extends JFrame {
 		
 	}
 	
+	private void createImageLabel() throws IOException{
+		BufferedImage myPicture = ImageIO.read(new File("graph.png"));
+		outputImage = new JLabel(new ImageIcon(myPicture));
+
+	}
+	
 	class AddCalculateListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent event)
@@ -103,11 +116,32 @@ public class GrapherGuiMainFrame extends JFrame {
 	
 	
 	private void createCalculateButton(){
+		calculate = new JButton("Calculate");
 		
+		ActionListener listener = new AddCalculateListener();
+		calculate.addActionListener(listener);
 	}
 	
 	private void createPanel(){
 		JPanel panel = new JPanel();
+		
+		panel.add(redExpress);
+		panel.add(redTextField);
+		panel.add(greenExpress);
+		panel.add(greenTextField);
+		panel.add(blueExpress);
+		panel.add(blueTextField);
+		panel.add(xRange);
+		panel.add(minX);
+		panel.add(maxX);
+		panel.add(yRange);
+		panel.add(minY);
+		panel.add(maxY);
+		panel.add(calculate);
+		panel.add(outputImage);
+		
+		add(panel);
+		
 		
 	}
 	
