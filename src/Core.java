@@ -14,31 +14,10 @@ public class Core {
 	 * 
 	 */
 	public static void main(String[] args) throws IOException{
-		Scanner sc = new Scanner(System.in);
-		
-		System.out.println("enter an expression");
-		String expression = sc.nextLine();
-		System.out.println("enter another");
-		String expression2 = sc.nextLine();
-		System.out.println("and a third");
-		String expression3 = sc.nextLine();
-		
-		sc.close();
-		
-		RgbGraph graph = new RgbGraph(expression,expression2,expression3,
-				-10,10,-10,10);
-		
-		int[][][] pixels = graph.getScaledGraph();
-		
-		BufferedGraphImage img = new BufferedGraphImage(RgbGraph.RESOLUTION);
-		
-		img.fillGraphImage(pixels);
-		File outputfile = new File("graph.png");
-		
-		
-		ImageIO.write(img, "png", outputfile);
-		
-		System.out.println("complete");
+		GrapherGuiMainFrame frame = new GrapherGuiMainFrame();
+		frame.setTitle("RGB-GRAPHER");
+		frame.setDefaultCloseOperation(GrapherGuiMainFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 		
 	}
 }
